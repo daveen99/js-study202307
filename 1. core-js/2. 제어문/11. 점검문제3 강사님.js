@@ -10,8 +10,24 @@ while (true) {
   let firstNumber = Math.floor(Math.random() * 20) + 1;
   let secondNumber = Math.floor(Math.random() * 20) + 1;
 
+  // 부호를 만들 랜덤 정수 생성
+  let markNum = Math.floor(Math.random() * 3);
+
+  let mark;
+  let realAnswer; // 실제 정답
+  if (markNum === 0) {
+    mark = '+';
+    realAnswer = firstNumber + secondNumber;
+  } else if (markNum === 1) {
+    mark = '-';
+    realAnswer = firstNumber - secondNumber;
+  } else {
+    mark = '*';
+    realAnswer = firstNumber * secondNumber;
+  }
+
   let userAnswer = +prompt(
-    `Q${qNumber++}. ${firstNumber} + ${secondNumber} = ??`
+    `Q${qNumber++}. ${firstNumber} ${mark} ${secondNumber} = ??`
   );
 
   if (userAnswer === 0) {
@@ -20,7 +36,7 @@ while (true) {
   }
 
   // 정답 확인
-  if (userAnswer === firstNumber + secondNumber) {
+  if (userAnswer === realAnswer) {
     alert(`정답입니다!`);
     correctCount++;
   } else {
