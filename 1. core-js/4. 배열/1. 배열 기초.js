@@ -37,3 +37,4 @@ console.log(foods);
 foods.forEach((f, i) => {
     console.log(`${i+1}번째 과일: ${f}`);
 });
+
