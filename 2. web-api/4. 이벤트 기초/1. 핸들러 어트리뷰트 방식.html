@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <style>
+      .box {
+        width: 100px;
+        height: 100px;
+        background: orange;
+        margin: 20px;
+      }
+      .red {
+        background: red;
+      }
+      .green {
+        background: yellowgreen;
+        font-size: 25px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div           
+      class="box"
+      onclick="alert(`크릭크릭!`);"
+      onmouseleave="boxClickAlertHandler()"
+    ></div>
+    <div class="box green" onclick="makeTextHandler()"></div>
+    <div class="box red" onmouseenter="growupHandler()"></div>
+
+    <script>
+      // 이벤트 핸들러
+      function boxClickAlertHandler() {
+        alert(`오렌지 박스 클릭함!`);
+      }
+
+      const growupHandler = function () {
+        const $redBox = document.querySelector(".red");
+        $redBox.style.width = "200px";
+      };
+
+      const makeTextHandler = () => {
+        const $greenBox = document.querySelector(".green");
+        $greenBox.textContent = "안녕";
+      };
+    </script>
+  </body>
+</html>
