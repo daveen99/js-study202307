@@ -6,8 +6,6 @@ const SUB = 'SUB';
 const MULTI = 'MULTI';
 const DIVIDE = 'DIVIDE';
 
-
-
 // 계산 이력을 모아둘 배열
 const logEntries = [];
 

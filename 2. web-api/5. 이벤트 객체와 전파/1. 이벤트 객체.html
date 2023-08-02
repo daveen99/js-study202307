@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <p>아무곳이나 클릭하시죠</p>
+    <em class="msg"></em>
+
+    <script>
+//                               e: 이벤트가 벌어진 정보를 준다.
+
+        const documentClickHandler = (e) => {
+            console.log('아무데나 클릭했삼');
+            console.log(e);
+            const $em = document.querySelector('.msg');
+            $em.textContent = `x: ${e.x}, y: ${e.y}`;
+        };
+        document.addEventListener('click', documentClickHandler);
+        document.addEventListener('keydown', documentClickHandler);
+
+    </script>
+
+</body>
+</html>
