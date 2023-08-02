@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <ul>
+        <li id="apple" style="background: red;">사과</li>
+        <li id="banana">바나나</li>
+        <li id="grape">포도</li>
+        <li id="peach">복숭아</li>
+    </ul>
+    
+    <script>
+        // console.log(document.body.children[0].children[0]);
+
+        // $를 붙이면 일반 변수가 아니라 태그가 들어있는 변수라고 표시하는것
+        // getElementById();   아이디를 이용해 태그를 가져옴
+        const number = 20;
+        const $banana = document.getElementById("banana");
+        console.log($banana);
+
+        $banana.textContent = "뿨눼이누어아";   // 텍스트 변경
+        $banana.attributes.id.value = "bnn";   // 아이디 변경
+
+        const $apple = document.getElementById("apple");
+        $apple.style.background = "orange"     // 배경색 변경
+
+
+    </script>
+
+</body>
+</html>
