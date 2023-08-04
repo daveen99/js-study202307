@@ -1,39 +1,48 @@
 // 하나의 상품 객체에 대한 설계도
 class Product {
-    // 객체를 만들 때 초기값을 세팅하는 용도
-    constructor(title, image, price, desc) {
-      this.title = title;
-      this.imageUrl = image;
-      this.price = price;
-      this.description = desc;
-    }
+  // 객체를 만들 때 초기값을 세팅하는 용도
+  constructor(title, image, price, desc) {
+    this.title = title;
+    this.imageUrl = image;
+    this.price = price;
+    this.description = desc;
   }
-  // 객체 생성
-  const p1 = new Product(
-    "냠냠이",
-    "https://blog.kakaocdn.net/dn/cSGF4R/btq5h0PUbMx/9RgR2KxK5oEeT9ku9O2xW1/img.png",
-    2000,
-    "냠냠박사님 맛있게 밥을 먹어주세요~"
-  );
-  console.log(p1);
-  const p2 = new Product(
-    "쩝쩝이",
-    "https://www.animaxtv.co.kr/sites/animaxtv.co.kr/files/ct_character_f_primary_image/nyamnyam.jpg",
-    7000,
-    "쩝쩝꿀꿀박사님 점심을 추천해주세요~"
-  );
-  console.log(p2);
+}
+// 객체 생성
+const p1 = new Product(
+  "냠냠이",
+  "https://blog.kakaocdn.net/dn/cSGF4R/btq5h0PUbMx/9RgR2KxK5oEeT9ku9O2xW1/img.png",
+  2000,
+  "냠냠박사님 맛있게 밥을 먹어주세요~"
+);
+// console.log(p1);
+const p2 = new Product(
+  "쩝쩝이",
+  "https://www.animaxtv.co.kr/sites/animaxtv.co.kr/files/ct_character_f_primary_image/nyamnyam.jpg",
+  7000,
+  "쩝쩝꿀꿀박사님 점심을 추천해주세요~"
+);
+// console.log(p2);
+
+// 한개의 LI태그를 생성하는 컴포넌트 클래스 설계
+class ProductItem {
+  constructor(product) {
+    this.product = product;
+  }
   
-  // 한개의 LI태그를 생성하는 컴포넌트 클래스 설계
-  class ProductItem {
-    constructor(product) {
-      this.product = product;
-    }
-  
-    render() {
-      const $prod = document.createElement("li");
-      $prod.classList.add("product-item");
-      $prod.innerHTML = `
+
+  // 담기버튼 클릭이벤트 핸들러
+  addToCartHandler() {
+    console.log(`장바구니에 상품을 추가함!`);
+    // 이 핸들러에서 누른 그 상품의 정보를 알아야 한다.
+    console.log(this.product);
+  }
+
+
+  render() {
+    const $prod = document.createElement("li");
+    $prod.classList.add("product-item");
+    $prod.innerHTML = `
           <div>
             <img src="${this.product.imageUrl}" alt="${this.product.title}">
             <div class="product-item__content">
@@ -44,13 +53,19 @@ class Product {
             </div>
           </div>
         `;
-        return $prod;
-    }
+
+    const $addCartBtn = $prod.querySelector("button");
+    // $addCartBtn.addEventListener("click", this.addToCartHandler.bind(this));
+    $addCartBtn.addEventListener("click", () => this.addToCartHandler());
+    return $prod;
   }
-  
-  // 상품 목록에 대한 객체
-  const productList = {
-    products: [
+}
+
+// 한 개의 UL을 생성하는 클래스
+class ProductList {
+  constructor() {
+    // 상품들을 모아 놓은 배열
+    this.products = [
       p1,
       p2,
       new Product(
@@ -71,23 +86,23 @@ class Product {
         60000,
         "맛있는 맹고~ 당장 사먹어야지~"
       ),
-    ],
-  
-    render() {
-      // console.log('render!!', this);
-      const $app = document.getElementById("app");
-      const $prodList = document.createElement("ul");
-      $prodList.classList.add("product-list");
-      this.products.forEach((prod) => {
-        //       { product: {title: '', imageUrl: ''}, render() }
-        const productItem = new ProductItem(prod);
-        // console.log(productItem);
-        $prodList.appendChild(productItem.render());
-      });
-      $app.appendChild($prodList);
-    },
-  };
-  
-  // 렌더링 명령
-  productList.render();
-  
+    ];
+  } // end constructor
+
+  render() {
+    // console.log('render!!', this);
+    const $app = document.getElementById("app");
+    const $prodList = document.createElement("ul");
+    $prodList.classList.add("product-list");
+    this.products.forEach((prod) => {
+      const productItem = new ProductItem(prod);
+      // console.log(productItem);
+      $prodList.appendChild(productItem.render());
+    });
+    $app.appendChild($prodList);
+  }
+}
+
+// 렌더링 명령
+const productList = new ProductList();
+productList.render();
