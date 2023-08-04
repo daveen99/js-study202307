@@ -1,25 +1,5 @@
-
-class Dog {
-    constructor(name, age, injection, favorite) {
-      this.name = name;
-      this.age = age;
-      this.injection = injection;
-      this.favorite = favorite;
-    }
-    walkInPark() {
-      console.log(`${this.name}이 산책합니다.`);
-    }
-  }
-  
-  const d1 = new Dog('뽀삐');
-  const d2 = new Dog('초코');
-  
-  d1.walkInPark();
-  d2.walkInPark();
-  
-  
-  // 하나의 상품 객체에 대한 설계도
-  class Product {
+// 하나의 상품 객체에 대한 설계도
+class Product {
     // 객체를 만들 때 초기값을 세팅하는 용도
     constructor(title, image, price, desc) {
       this.title = title;
@@ -44,6 +24,30 @@ class Dog {
   );
   console.log(p2);
   
+  // 한개의 LI태그를 생성하는 컴포넌트 클래스 설계
+  class ProductItem {
+    constructor(product) {
+      this.product = product;
+    }
+  
+    render() {
+      const $prod = document.createElement("li");
+      $prod.classList.add("product-item");
+      $prod.innerHTML = `
+          <div>
+            <img src="${this.product.imageUrl}" alt="${this.product.title}">
+            <div class="product-item__content">
+              <h2>${this.product.title}</h2>
+              <h3>${this.product.price}원</h3>
+              <p>${this.product.description}</p>
+              <button>담기</button>
+            </div>
+          </div>
+        `;
+        return $prod;
+    }
+  }
+  
   // 상품 목록에 대한 객체
   const productList = {
     products: [
@@ -65,7 +69,7 @@ class Dog {
         "애플망고",
         "https://m.thegiboon.com/web/product/big/202104/ea08c22e8939ab1977487abc826b8ab8.jpg",
         60000,
-        "맛있는 맹고~ 당장 사먹어야지~",
+        "맛있는 맹고~ 당장 사먹어야지~"
       ),
     ],
   
@@ -75,20 +79,10 @@ class Dog {
       const $prodList = document.createElement("ul");
       $prodList.classList.add("product-list");
       this.products.forEach((prod) => {
-        const $prod = document.createElement("li");
-        $prod.classList.add("product-item");
-        $prod.innerHTML = `
-          <div>
-            <img src="${prod.imageUrl}" alt="${prod.title}">
-            <div class="product-item__content">
-              <h2>${prod.title}</h2>
-              <h3>${prod.price}원</h3>
-              <p>${prod.description}</p>
-              <button>담기</button>
-            </div>
-          </div>
-        `;
-        $prodList.appendChild($prod);
+        //       { product: {title: '', imageUrl: ''}, render() }
+        const productItem = new ProductItem(prod);
+        // console.log(productItem);
+        $prodList.appendChild(productItem.render());
       });
       $app.appendChild($prodList);
     },
