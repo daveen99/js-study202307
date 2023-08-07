@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    </style>
+</head>
+<body>
+    
+    <pre></pre>
+    <button id="btn">등록!</button>
+
+    <script>
+        const fetchPost = () => {
+
+        
+
+        // 서버에 등록 요청(PTSD)
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', 'http://localhost:5000/posts');
+
+        // 서버로 보낼 테이터 (payload)
+        const newPost = {
+            title: '새로운 데이터 게시물',
+            body: '받아라 셀, 선두라는거다.'
+        };
+
+        // payload를 보낼 때는 JS -> JSON으로 변환해서 보내야 함
+        const payload = JSON.stringify(newPost);
+
+        // 보내는 데이터가 뭔지 요청 헤더에 적어야 함  // image/png
+        xhr.setRequestHeader('content-type', 'application/json');
+
+        // 요청 송신: 데이터를 실어보냄
+        xhr.send(payload);
+    };
+
+    document.getElementById('btn').addEventListener('click', fetchPost);
+
+    </script>
+
+
+</body>
+</html>
