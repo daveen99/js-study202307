@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <div class="wrap">
+        <ul id="fruits">
+            <li class="fr apple">사과</li>
+            <li class="fr banana">바나나</li>
+            <li class="fr grape">포도</li>
+        </ul>
+    </div>
+
+    <script>
+        const $fruits = document.getElementById(`fruits`);
+
+        const $wrap = $fruits.parentElement;
+
+        const [$apple ,$banana, $grape] = [...$wrap.firstElementChild.children];
+
+        const sameFlag 
+        = $banana.previousElementSibling === $apple;
+        console.log(sameFlag);
+
+        // $grape.parentElement.parentElement.lastElementChild.nextElementSibling
+
+        // closest (`css 선택자`): 가까운 태그를 탐색한다. (위로 탐색/부모쪽으로)
+        const $found = $grape.closest(`.wrap`);
+        console.log($found);
+
+        $grape.querySelector('a');   // 아래쪽으로 탐색 (자식쪽으로)
+
+    </script>   
+</body>
+</html>
