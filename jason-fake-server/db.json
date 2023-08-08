@@ -1,14 +1,42 @@
 {
   "posts": [
     {
-      "title": "2",
-      "body": "2",
-      "id": 3
+      "title": "1번",
+      "body": "입니다\n",
+      "id": 1
     },
     {
-      "title": "24",
-      "body": "12",
-      "id": 4
+      "title": "2번",
+      "body": "입니다",
+      "id": 2
+    },
+    {
+      "title": "3번",
+      "body": "입니다",
+      "id": 3
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "userName": "김철수"
+    },
+    {
+      "id": 2,
+      "userName": "뽀로로"
+    }
+  ],
+  "followers": [],
+  "todos": [
+    {
+      "text": "첫번째 할일",
+      "done": true,
+      "id": 1
+    },
+    {
+      "text": "ㅇㅇ",
+      "done": true,
+      "id": 2
     }
   ]
 }
