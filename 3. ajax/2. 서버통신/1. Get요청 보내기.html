@@ -4,10 +4,20 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <script src="1. app.js" defer></script>
+    <script src="2. app.js" defer></script>
     <link rel="stylesheet" href="app.css" />
   </head>
   <body>
+
+    <!-- 동적으로 렌더링될 태그를 템플릿화 -->
+    <template id="single-post">
+      <li class="post-item">
+        <h2></h2>
+        <p></p>
+        <button>DELETE</button>
+      </li>
+    </template>
+
     <!-- <a href="https://www.naver.com" id="go-link">네이버로 이동</a> -->
 
     <section id="new-post">
