@@ -8,7 +8,6 @@ const $todoUl = document.querySelector(".todo-list");
 const $addbtn = document.getElementById("add");
 //수정버튼
 
-
 fetch(URL)
   .then((res) => res.json())
   .then((todo_list) => {
@@ -52,22 +51,26 @@ $form.addEventListener("submit", (e) => {
 
 // 삭제 클릭하면 벌어질 일들에 대한 함수
 const deletePostHandler = (e) => {
-  if(e.target.matches(".modify span")) {
-    const id = e.target.closest(".todo-list-item").dataset.postId;
-    const $addtext = document.getElementById('addtext');
-    const $beforemodi = document.querySelector('.checkbox span');
+  e.preventDefault();
+  if (e.target.matches(".modify span")) {
+    // const id = e.target.closest(".todo-list-item").dataset.postId;
+    const $addtext = e.target.parentNode.parentNode.querySelector('#addtext');
+    const $beforemodi = e.target.parentNode.parentNode.querySelector('.text');
+    console.log($addtext);
+    console.log($beforemodi);
 
-    $addtext.textContent = $beforemodi.textContent;
+    $addtext.value = $beforemodi.textContent;
 
-    if ($addtext.classList.value === 'modify-input'){
-      $addtext.classList.remove('modify-input');
-      $beforemodi.classList.remove('visible');
+    if ($addtext.classList.value === "modify-input") {
+      $beforemodi.textContent = $addtext.value;
+      $addtext.value = null;
+      $addtext.classList.remove("modify-input");
+      $beforemodi.classList.remove("visible");
     } else {
-      $addtext.classList.add('modify-input');
-      $beforemodi.classList.add('visible');
+      $addtext.classList.add("modify-input");
+      $beforemodi.classList.add("visible");
     }
-  };
-
+  }
 
   if (!e.target.matches(".remove span")) return;
 
@@ -116,15 +119,10 @@ $todoUl.addEventListener(
   true
 );
 
-const modifyHandler = (e) => {
-
-}
+const modifyHandler = (e) => {};
 
 // .catch(err => {
 //   console.log(err);
 // });
 
 $todoUl.addEventListener("click", deletePostHandler);
-
-
-

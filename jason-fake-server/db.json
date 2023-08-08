@@ -34,9 +34,14 @@
       "id": 1
     },
     {
-      "text": "ㅇㅇ",
-      "done": true,
+      "text": "두번째 할일",
+      "done": false,
       "id": 2
+    },
+    {
+      "text": "세번째 할일",
+      "done": false,
+      "id": 3
     }
   ]
 }
