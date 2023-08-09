@@ -33,10 +33,19 @@ const renderTodos = (todoList) => {
 
     $todoList.appendChild($newLi);
   });
+
+  const $countCheck = calculCheckbox();
+  [count, total] = $countCheck;
+
+
+  
+  const title = document.querySelector('.app-title');
+  title.textContent = `일정관리 ( ${count} / ${total}개 완료)`
 };
 
 // ========= 이벤트 관련 함수 ========= //
 const addTodoHandler = (e) => {
+  // e.preventDefault();
   // 1. 클릭이벤트가 잘 일어나나?
   // console.log('클릭!');
 
@@ -49,22 +58,44 @@ const addTodoHandler = (e) => {
   // 3. 그럼 서버에 이 데이터를 보내서 저장해야 하는데?
   // -> fetch가 필요하겠다. 저장이니까 POST해야겠다.
   // -> payload를 API 스펙에 맞게 만들어 보내야 함
-  const payload = {
-    text: inputText,
-    done: false,
-  };
-  fetchTodos(URL, "POST", payload).then((res) => {
-    if (res.status === 200 || res.status === 201) {
-      console.log("등록 성공!");
-    } else {
-      console.log("등록 실패!");
-    }
-  });
+  const $trimtext = inputText.trim();
+  const $inputText = document.getElementById('todo-text');
+
+  if ($trimtext.length > 10) {
+    alert('10글자 이하로 입력해주세요.');
+    $inputText.value = '';
+    return;
+  }
+  else if ($trimtext.length >= 1) {
+    $textInput.style.background="#495057";
+    $textInput.setAttribute('placeholder', '할 일을 입력하세요');
+    const payload = {
+      text: inputText,
+      done: false,
+    };
+    fetchTodos(URL, "POST", payload).then((res) => {
+      if (res.status === 200 || res.status === 201) {
+        console.log("등록 성공!");
+      } else {
+        console.log("등록 실패!");
+      }
+    });
+  } else {
+    // console.log($trimtext);
+    $textInput.style.background="red";
+    $textInput.setAttribute('placeholder', '공백은 허용하지 않습니다. (다시입력)');
+    $inputText.value = '';
+    return;
+  }
 };
 
 // step2. 할 일 등록 기능
 const $addBtn = document.getElementById("add");
 $addBtn.addEventListener("click", addTodoHandler);
+document.addEventListener('keydown', (event) => {
+  // console.log(event.code);
+  if(event.key === "Enter") addTodoHandler();
+});
 
 // step3. 할 일 삭제 기능
 const deleteTodoHandler = (e) => {
@@ -137,21 +168,20 @@ $todoList.addEventListener("change", checkTodoHandler);
 // };
 // $todoList.addEventListener("click", modifyTodoHandler);
 
-
 // step5. 할 일 수정 처리
 //수정 모드 진입하는 함수
 const enterModifyMode = ($undo) => {
   //클래스 이름을 변경하여 아이콘을 바꾸자
   // => 클릭한 span태그 노드를 가져와야 함.
-  $undo.classList.replace('lnr-undo', 'lnr-checkmark-circle');
+  $undo.classList.replace("lnr-undo", "lnr-checkmark-circle");
 
   // $undo근처에 있는 span.text를 가져와야함
-  const $textSpan = $undo.closest('.todo-list-item').querySelector('.text');
-  
+  const $textSpan = $undo.closest(".todo-list-item").querySelector(".text");
+
   // 교체할 Input을 생성한다.
-  const $modInput = document.createElement('input');
-  $modInput.classList.add('modify-input');
-  $modInput.setAttribute('type', 'text');
+  const $modInput = document.createElement("input");
+  $modInput.classList.add("modify-input");
+  $modInput.setAttribute("type", "text");
   $modInput.value = $textSpan.textContent;
 
   // span을 input으로 교체하기
@@ -160,31 +190,44 @@ const enterModifyMode = ($undo) => {
 };
 
 const modifyTodo = ($checkMark) => {
-  const $li = $checkMark.closest('.todo-list-item');
+  const $li = $checkMark.closest(".todo-list-item");
   const id = $li.dataset.id;
-  const newText = $li.querySelector('.modify-input').value;
-  
-  fetchTodos(`${URL}/${id}`, 'PATCH', {
-    text: newText
-  })
+  const newText = $li.querySelector(".modify-input").value;
+
+  fetchTodos(`${URL}/${id}`, "PATCH", {
+    text: newText,
+  });
 };
 
 //수정 이벤트 처리 핸들러
-const modifyTodoHandler = e => {
-  if (e.target.matches('.modify span.lnr-undo')) {
+const modifyTodoHandler = (e) => {
+  if (e.target.matches(".modify span.lnr-undo")) {
     enterModifyMode(e.target); // 수정 모드 진입하기
-  } else if (e.target.matches('.modify span.lnr-checkmark-circle')) {
+  } else if (e.target.matches(".modify span.lnr-checkmark-circle")) {
     modifyTodo(e.target); // 서버 수정요청 보내기
   }
 };
-$todoList.addEventListener('click', modifyTodoHandler);
+$todoList.addEventListener("click", modifyTodoHandler);
 
+// 체크박스 몇개 체크되어있는지 계산하는 함수!
+const calculCheckbox = () => {
+  const $checks = $todoList.querySelectorAll('.checkbox input[type=checkbox]');
+  const $checksArr = Array.prototype.slice.call($checks);
 
+  const $checkRight = $checksArr.length;
+  let count = 0;
+  // console.log($checkRight);
+  // console.log($checksArr);
+  $checksArr.forEach((e) => {
+    if(e.checked) {
+      count = count + 1;
+    }
+  });
+  // console.log(count);
 
-
-
-
-
+  const $returnArr = [ count, $checkRight ];
+  return $returnArr;
+};
 
 
 
