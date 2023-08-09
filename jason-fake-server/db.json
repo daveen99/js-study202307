@@ -42,6 +42,11 @@
       "id": 3,
       "text": "자바스크립트 공부하기",
       "done": false
+    },
+    {
+      "text": "크앙",
+      "done": false,
+      "id": 4
     }
   ]
 }
