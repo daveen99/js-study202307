@@ -29,24 +29,19 @@
   "followers": [],
   "todos": [
     {
-      "id": 1,
-      "text": "저녁 요리하기",
-      "done": false
-    },
-    {
-      "id": 2,
-      "text": "뉴스 기사 보기",
-      "done": true
-    },
-    {
-      "id": 3,
-      "text": "자바스크립트 공부하기",
-      "done": false
-    },
-    {
-      "text": "크앙",
+      "text": "잘바뀌누 ㅋㅋ",
       "done": false,
-      "id": 4
+      "id": 1
+    },
+    {
+      "text": "하나 둘 삼 넷 오륙",
+      "done": false,
+      "id": 2
+    },
+    {
+      "text": "마구마구 바꿔버리기",
+      "done": false,
+      "id": 3
     }
   ]
 }
